@@ -18,7 +18,8 @@ This project provides utilities to **dump** and **restore** a MongoDB database f
 ## Prerequisites
 
 - Python 3.x
-- MongoDB Atlas and MongoDB Compass
+- [MongoDB Atlas](https://www.mongodb.com/it-it/products/platform/atlas-database) 
+- [MongoDB Compass](https://www.mongodb.com/products/tools/compass)
 - [pymongo](https://pypi.org/project/pymongo/)
 - MongoDB tools (`mongodump`, `mongorestore`)
 - A running MongoDB instance (default: `localhost:27017`)
