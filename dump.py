@@ -39,6 +39,6 @@ def dump_mongo(db_name, output_dir):
         print(f"An error occurred while dumping MongoDB: {e}")
 
 
-db_name = input("Quale database vuoi esporate?")
+db_name = input("Quale database vuoi esportare?")
 
 dump_mongo(db_name, './dump')
