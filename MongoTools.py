@@ -2,8 +2,14 @@ from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 import subprocess
 
-# Global DB URI
-db_uri = input("Prompt the MongoDB connection string [default:mongodb://localhost:27017]:")
+
+db_uri = None
+
+def init_connection_uri():
+    global db_uri
+    uri = input("Prompt the MongoDB connection string [default:mongodb://localhost:27017]: ").strip()
+    db_uri = uri or "mongodb://localhost:27017"
+    print(f"✔ Using MongoDB URI: {db_uri}")
 
 # Test MongoDB connection
 def test_connection(db_uri="mongodb://localhost:27017"):
@@ -73,6 +79,20 @@ def create_database():
     except Exception as e:
         print(f"✖ Failed to create database: {e}")
 
+#Show list of databases on the servers
+def list_databases():
+    try:
+        client = MongoClient(db_uri)
+        db_list = client.list_database_names()
+        if db_list:
+            print("✔ Databases available on the server:")
+            for db_name in db_list:
+                print(f"  - {db_name}")
+        else:
+            print("⚠ No databases found on the server.")
+    except Exception as e:
+        print(f"✖ Failed to list databases: {e}")
+
 # Menu principale con match-case (Python 3.10+)
 def main():
     while True:
@@ -81,7 +101,8 @@ def main():
         print("2. Dump Database")
         print("3. Restore Database")
         print("4. Check Collection")
-        print("5.Exit")
+        print("5. Show list of databases")
+        print("6. Exit program")
         choice = input("Select an option [1-4]: ").strip()
 
         try:
@@ -95,6 +116,8 @@ def main():
                 case "4":
                     list_collections()
                 case "5":
+                    list_databases()
+                case "6":
                     print("Exiting the program.")
                     break
                 case _:

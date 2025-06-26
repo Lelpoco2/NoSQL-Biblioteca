@@ -29,37 +29,46 @@ This project provides utilities to **dump** and **restore** a MongoDB database f
 ```
 .
 ├── .gitignore
-├── dump.py <- USE THIS TO BACKUP YOUR DATABASE DATA
-├── load_data.py <- USE THIS TO RESTORE YOUR DATABASE DATA
-├── README.md
-└── dump/
-    └── <your-backup-database>/
-        |- <data-backups>
+├── MongoTools.py           <- RUN THIS PROGRAM
+├── README.md               <- Documentation
+└── dump/                   <- default backup path 
+    └── <database-name>/    <- folder named as DB
+        |- <data-backups>   <- .bson and .json files
 ```
+## How the programm works ?
 
-# Usage of the dump.py and load_data.py
+The MongoTools.py script is an interactive command-line utility that allows you to perform essential MongoDB administrative tasks. It provides a simple menu interface to interact with your MongoDB server.
 
-### 1. Dump the Database
+### Features
+Once launched, the program will:
 
-Use [dump.py](dump.py) to export the contents of a MongoDB database.
+Prompt for a MongoDB connection URI
 
-```sh
-python dump.py
-```
+Default: mongodb://localhost:27017
 
-- You will be prompted to enter the database name to export.
-- The script uses `mongodump` to create a BSON dump in the `./dump` directory.
+Useful for switching between local and remote MongoDB instances.
 
-### 2. Restore the Database
+Display a menu of operations, including:
 
-Use [load_data.py](load_data.py) to restore the database from a BSON dump.
+- Test connection to the MongoDB server
 
-```sh
-python load_data.py
-```
+- Dump (backup) a specific database to the ./dump directory
 
-- By default, it restores the `library` database from `./dump/library`.
-- You can modify the script to restore a different database or path.
+- Restore a database from a backup
+
+- List all collections within a specified database
+
+- Create a new database by inserting a document into a new collection
+
+- List all databases available on the connected server
+
+- Exit the utility
+
+Backup and restore support using mongodump and mongorestore under the hood.
+
+Dumps are stored in the ./dump/<\database-name>/ directory.
+
+These backups include .bson data files and .metadata.json files.
 
 ## Data Files
 
